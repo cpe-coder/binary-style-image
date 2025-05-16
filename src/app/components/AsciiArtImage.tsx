@@ -56,15 +56,15 @@ const AsciiVideo = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen w-full bg-black p-4 px-2">
+		<div className="flex flex-col items-center justify-center h-screen w-full bg-[#0a0a0a] p-4 px-2">
 			<h1 className="font-bold text-2xl text-purple-500">Danica</h1>
 			<video
 				ref={videoRef}
 				src="/kat.mp4"
-				width={0}
-				height={0}
 				autoPlay
 				loop
+				width={0}
+				height={0}
 				playsInline
 			/>
 			<canvas ref={canvasRef} className="hidden" />
