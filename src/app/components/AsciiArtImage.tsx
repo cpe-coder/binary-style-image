@@ -39,8 +39,8 @@ const AsciiVideo = () => {
 		const canvas = canvasRef.current!;
 		const ctx = canvas.getContext("2d")!;
 
-		const width = 80;
-		const height = 60;
+		const width = 110;
+		const height = 85;
 		canvas.width = width;
 		canvas.height = height;
 
@@ -56,7 +56,7 @@ const AsciiVideo = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen w-full bg-white p-4">
+		<div className="flex flex-col items-center justify-center h-screen w-full bg-black p-4 px-2">
 			<h1 className="font-bold text-2xl text-purple-500">Danica</h1>
 			<video
 				ref={videoRef}
