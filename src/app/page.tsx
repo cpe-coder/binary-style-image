@@ -3,5 +3,10 @@
 import AsciiVideo from "./components/AsciiArtImage";
 
 export default function Home() {
-	return <AsciiVideo />;
+	return (
+		<>
+			<title>Danica</title>
+			<AsciiVideo />
+		</>
+	);
 }

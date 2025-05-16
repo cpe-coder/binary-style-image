@@ -57,6 +57,7 @@ const AsciiVideo = () => {
 
 	return (
 		<div className="flex flex-col items-center justify-center h-screen w-full bg-[#0a0a0a] p-4 px-2">
+			<title>Danica</title>
 			<h1 className="font-bold text-2xl text-purple-500">Danica</h1>
 			<video
 				ref={videoRef}
