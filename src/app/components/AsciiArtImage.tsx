@@ -5,13 +5,18 @@ const AsciiVideo = () => {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [ascii, setAscii] = useState("");
+	const [playing, setPlaying] = useState(false);
+
+	const width = 110;
+	const height = 85;
+
+	const asciiChars = "Danica";
 
 	const convertToAscii = (
 		ctx: CanvasRenderingContext2D,
 		width: number,
 		height: number
 	) => {
-		const asciiChars = "Danica";
 		const imageData = ctx.getImageData(0, 0, width, height).data;
 		let asciiFrame = "";
 
@@ -35,25 +40,44 @@ const AsciiVideo = () => {
 	};
 
 	useEffect(() => {
-		const video = videoRef.current!;
-		const canvas = canvasRef.current!;
-		const ctx = canvas.getContext("2d")!;
+		const video = videoRef.current;
+		const canvas = canvasRef.current;
+		if (!video || !canvas) return;
 
-		const width = 110;
-		const height = 85;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
+
 		canvas.width = width;
 		canvas.height = height;
 
-		const interval = setInterval(() => {
-			if (video.readyState >= 2) {
-				ctx.drawImage(video, 0, 0, width, height);
-				const frame = convertToAscii(ctx, width, height);
-				setAscii(frame);
-			}
-		}, 100);
+		let animationFrameId: number;
 
-		return () => clearInterval(interval);
-	}, []);
+		const renderLoop = () => {
+			if (video && playing && video.readyState >= 2) {
+				ctx.drawImage(video, 0, 0, width, height);
+				const asciiFrame = convertToAscii(ctx, width, height);
+				setAscii(asciiFrame);
+			}
+			animationFrameId = requestAnimationFrame(renderLoop);
+		};
+
+		animationFrameId = requestAnimationFrame(renderLoop);
+
+		return () => cancelAnimationFrame(animationFrameId);
+	}, [playing]);
+
+	const togglePlay = () => {
+		const video = videoRef.current;
+		if (!video) return;
+
+		if (playing) {
+			video.pause();
+		} else {
+			video.play();
+		}
+
+		setPlaying(!playing);
+	};
 
 	return (
 		<div className="flex flex-col items-center justify-center h-screen w-full bg-[#0a0a0a] p-4 px-2">
@@ -72,6 +96,12 @@ const AsciiVideo = () => {
 			<pre className="font-mono text-[5px] leading-[6px] text-purple-500 border-2 rounded-2xl whitespace-pre-wrap text-center">
 				{ascii}
 			</pre>
+			<button
+				onClick={togglePlay}
+				className="mt-4 px-4 py-2 text-white bg-purple-500 hover:bg-purple-400-700 rounded"
+			>
+				{playing ? "Pause" : "Play"}
+			</button>
 		</div>
 	);
 };
