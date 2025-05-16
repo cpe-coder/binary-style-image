@@ -7,8 +7,8 @@ const AsciiVideo = () => {
 	const [ascii, setAscii] = useState("");
 	const [playing, setPlaying] = useState(false);
 
-	const width = 110;
-	const height = 85;
+	const width = 75;
+	const height = 60;
 
 	const asciiChars = "Danica";
 
@@ -80,7 +80,7 @@ const AsciiVideo = () => {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen w-full bg-[#0a0a0a] p-4 px-2">
+		<div className="flex flex-col items-center justify-center h-screen w-full bg-slate-100 p-4 px-2 gap-2">
 			<title>Danica</title>
 			<h1 className="font-bold text-2xl text-purple-500">Danica</h1>
 			<video
@@ -88,12 +88,13 @@ const AsciiVideo = () => {
 				src="/kat.mp4"
 				autoPlay
 				loop
-				width={0}
-				height={0}
+				width={50}
+				height={50}
+				className="rounded-md "
 				playsInline
 			/>
 			<canvas ref={canvasRef} className="hidden" />
-			<pre className="font-mono text-[5px] leading-[6px] text-purple-500 border-2 rounded-2xl whitespace-pre-wrap text-center">
+			<pre className="font-mono text-[8px] leading-[8px] text-purple-500 border-2 rounded-2xl whitespace-pre-wrap text-center">
 				{ascii}
 			</pre>
 			<button
